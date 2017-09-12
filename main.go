@@ -49,6 +49,7 @@ func main() {
 
 	fmt.Printf("goose: status for environment '%v'\n", conf.Env)
 
+	goose.SortMigrations(migrations, true)
 	for _, m := range migrations {
 		runPendingMigration(conf, db, m.Version, m.Source)
 	}

@@ -411,3 +411,9 @@ var sqlMigrationTemplate = template.Must(template.New("goose.sql-migration").Par
 -- SQL section 'Down' is executed when this migration is rolled back
 
 `))
+
+// SortMigrations sort migrations
+func SortMigrations(migrations []*Migration, direction bool) {
+	ms := migrationSorter(migrations)
+	ms.Sort(direction)
+}
