@@ -132,6 +132,10 @@ func main() {
 
 	err = {{ .Func }}(txn)
 	if err != nil {
+		errR := txn.Rollback()
+		if errR != nil {
+			log.Fatalf("{{ .Func }} failed:%v \ntxn.Rollback failed:%v", err, errR)
+		}
 		log.Fatal("{{ .Func }} failed:", err)
 	}
 
