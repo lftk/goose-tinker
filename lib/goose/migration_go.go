@@ -108,7 +108,7 @@ import (
 	"encoding/gob"
 
 	_ "{{.Import}}"
-	"bitbucket.org/liamstask/goose/lib/goose"
+	"github.com/4396/goose-tinker/lib/goose"
 )
 
 func main() {
@@ -130,7 +130,10 @@ func main() {
 		log.Fatal("db.Begin:", err)
 	}
 
-	{{ .Func }}(txn)
+	err = {{ .Func }}(txn)
+	if err != nil {
+		log.Fatal("{{ .Func }} failed:", err)
+	}
 
 	err = goose.FinalizeMigration(&conf, txn, {{ .Direction }}, {{ .Version }})
 	if err != nil {
